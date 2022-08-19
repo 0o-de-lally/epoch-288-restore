@@ -9,7 +9,7 @@ SOURCE_PATH=~/libra
 endif
 
 ifndef ARCHIVE_PATH
-ARCHIVE_PATH=~/epoch-archive
+ARCHIVE_PATH=$(shell pwd)
 endif
 
 ifndef DATA_PATH
@@ -25,7 +25,7 @@ URL=http://localhost
 endif
 
 ifndef EPOCH
-EPOCH=$(shell expr ${EPOCH_NOW} - 1)
+EPOCH=288
 endif
 
 ifndef EPOCH_LEN
@@ -107,7 +107,7 @@ zip:
 epoch:
 	@echo ${EPOCH_NOW}
 
-restore-all: restore-epoch restore-transaction restore-snapshot restore-waypoint restore-yaml
+restore-all: restore-epoch restore-transaction restore-snapshot restore-waypoint
 	# Destructive command. node.yaml, and db will be wiped.
 
 restore-latest:
@@ -143,6 +143,7 @@ restore-snapshot:
 
 restore-waypoint:
 	@echo ${EPOCH_WAYPOINT} > ${DATA_PATH}/restore_waypoint
+	ol init --update-waypoint --waypoint ${EPOCH_WAYPOINT}
 
 restore-yaml:
 	@if test ! -d ${DATA_PATH}; then \

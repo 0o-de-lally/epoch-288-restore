@@ -25,7 +25,7 @@ URL=http://localhost
 endif
 
 ifndef EPOCH
-EPOCH=288
+EPOCH=289
 endif
 
 ifndef EPOCH_LEN
